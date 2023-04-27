@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CONTENT </title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300&display=swap");
+      body {
+        background-color: black;
+        font-family: "Darker Grotesque", sans-serif;
+      }
+      .accordion {
+        background-color: #eee;
+        color: #000000;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        outline: none;
+        font-weight: bold;
+        font-size: 15px;
+        transition: 0.4s;
+        margin-bottom: 10px;
+      }
+      .accordion:after {
+        content: "\02795"; /* Unicode character for "plus" sign (+) */
+        font-size: 13px;
+        color: #777;
+        float: right;
+        margin-left: 5px;
+      }
+
+      .active,
+      .accordion:hover {
+        background-color: #ccc;
+      }
+
+      .panel {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        margin-top: -10px;
+        padding: 0 19px;
+        display: none;
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 20px;
+        background-color: white;
+        overflow: hidden;
+      }
+
+      pre code {
+        background-color: #eee;
+        border: 1px solid #999;
+        display: block;
+        font-size: 12px;
+        color: rgb(104, 104, 104);
+      }
+      
+    </style>
+  </head>
+  <body>
+    <section>
+      <button class="accordion">
+        MONOALPHABETIC
+      </button>
+      <div class="panel">
+        
+        <pre>
+        <code class = "xcode">
+            import string
+            def printString(S, N):
+                plaintext = [None] * 5
+                freq = [0] * 26
+                freqSorted = [None] * 26
+                used = [0] * 26
+                for i in range(N):
+                    if S[i] != " ":
+                        freq[ord(S[i]) - 65] += 1
+                for i in range(26):
+                    freqSorted[i] = freq[i]
+                T = "ETAOINSHRDLCUMWFGYPBVKJXQZ"
+                freqSorted.sort(reverse=True)
+                for i in range(5):
+                    ch = -1
+                    for j in range(26):
+                        if freqSorted[i] == freq[j] and used[j] == 0:
+                            used[j] = 1
+                            ch = j
+                            break
+                    if ch == -1:
+                        break
+                    x = ord(T[i]) - 65
+                    x = x - ch
+                    curr = ""
+                    for k in range(N):
+                        if S[k] == " ":
+                            curr += " "
+                            continue
+                        y = ord(S[k]) - 65
+                        y += x
+                        if y < 0:
+                            y += 26
+                        if y > 25:
+                            y -= 26
+                        curr += chr(y + 65)
+            
+                    plaintext[i] = curr
+            
+                for i in range(5):
+                    print(plaintext[i])
+            
+            
+            # Driver code
+            S = "B TJNQMF NFTTBHF"
+            N = len(S)
+            printString(S, N)
+        </code>
+        </pre>
+      </div>
+      <!--  -->
+      <button class="accordion">
+        VIGENERE CIPHER
+      </button>
+      <div class="panel">
+        
+        <pre>
+        <code class = "xcode">
+import string
+
+def generateKey(string, key):
+    key = list(key)
+    if len(string) == len(key):
+        return key
+    else:
+        for i in range(len(string) - len(key)):
+            key.append(key[i % len(key)])
+    return "".join(key)
+
+
+def cipherText(string, key):
+    cipher_text = []
+    for i in range(len(string)):
+        x = (ord(string[i]) + ord(key[i])) % 26
+        x += ord("A")
+        cipher_text.append(chr(x))
+    return "".join(cipher_text)
+
+
+def originalText(cipher_text, key):
+    orig_text = []
+    for i in range(len(cipher_text)):
+        x = (ord(cipher_text[i]) - ord(key[i]) + 26) % 26
+        x += ord("A")
+        orig_text.append(chr(x))
+    return "".join(orig_text)
+
+
+# Driver code
+if __name__ == "__main__":
+    string = "CHIRAGCHAUDHARI"
+    keyword = "ABCDE"
+    key = generateKey(string, keyword)
+    cipher_text = cipherText(string, key)
+    print("Ciphertext :", cipher_text)
+    print("Original/Decrypted Text :", originalText(cipher_text, key))
+        </code>
+        </pre>
+      </div>
+      <!--  -->
+      <button class="accordion">
+        RSA ALGORITHM
+      </button>
+      <div class="panel">
+        
+        <pre>
+        <code class = "xcode">
+import math 
+message = int (input("Enter the message to be encrypted"))
+p = 11
+q = 7
+e = 3
+
+n = p * q
+
+def encrypt(me):
+    en = math.pow(me,e)
+    c = en % n
+    print("Encrypted Message is:" , c)
+    return c,
+
+print("original message is:" , message)
+c = encrypt(message)
+        </code>
+        </pre>
+      </div>
+      <!--  -->
+      <button class="accordion">
+        PRODUCT CIPHER
+      </button>
+      <div class="panel">
+        
+        <pre>
+        <code class = "xcode">
+import string
+
+all_letters= string.ascii_letters
+	
+dict1 = {}
+key = 4
+
+for i in range(len(all_letters)):
+	dict1[all_letters[i]] = all_letters[(i+key)%len(all_letters)]
+
+
+plain_txt= "I am studying Data Encryption"
+cipher_txt=[]
+
+for char in plain_txt:
+	if char in all_letters:
+		temp = dict1[char]
+		cipher_txt.append(temp)
+	else:
+		temp =char
+		cipher_txt.append(temp)
+		
+cipher_txt= "".join(cipher_txt)
+print("Cipher Text is: ",cipher_txt)
+
+dict2 = {}	
+for i in range(len(all_letters)):
+	dict2[all_letters[i]] = all_letters[(i-key)%(len(all_letters))]
+
+decrypt_txt = []
+
+for char in cipher_txt:
+	if char in all_letters:
+		temp = dict2[char]
+		decrypt_txt.append(temp)
+	else:
+		temp = char
+		decrypt_txt.append(temp)
+		
+decrypt_txt = "".join(decrypt_txt)
+print("Recovered plain text :", decrypt_txt)
+        </code>
+        </pre>
+      </div>
+    </section>
+    <script>
+      var acc = document.getElementsByClassName("accordion");
+      var i;
+
+      for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+            panel.style.display = "none";
+          } else {
+            panel.style.display = "block";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
